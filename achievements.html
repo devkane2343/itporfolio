@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kane Reroma - Achievements</title>
+    <link rel="icon" type="image/jpeg" href="icons/PP.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #000000 0%, #7f1d1d 50%, #000000 100%);
+        }
+        .certificate-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .certificate-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.2);
+        }
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            transition: left 0.5s ease-in-out;
+        }
+        .certificate-card:hover::before {
+            left: 100%;
+        }
+        .nav-item {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-item:hover {
+            background-color: #374151;
+        }
+        .nav-item.active {
+            background-color: #ef4444;
+        }
+        .certificate-image {
+            transition: transform 0.3s ease-in-out;
+        }
+        .certificate-card:hover .certificate-image {
+            transform: scale(1.05);
+        }
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            z-index: 10;
+        }
+        .date-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            color: #d1d5db;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .filter-btn.active {
+            background-color: #ef4444;
+            color: white;
+        }
+        .filter-btn:hover:not(.active) {
+            background-color: #374151;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border: 2px solid #ef4444;
+            transition: all 0.3s ease-in-out;
+        }
+        .stats-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.2);
+        }
+        
+        /* Social button animations */
+        .social-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .social-btn:hover {
+            background-color: #ef4444;
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        /* Card hover animations */
+        .card-hover {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.1);
+        }
+        
+        /* Pulse glow animation for stats cards */
+        .stats-card:hover {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+        
+        /* Modern font styles */
+        .modern-text {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 text-white font-sans">
+    <div class="flex min-h-screen">
+        <!-- Left Sidebar -->
+        <div class="w-96 bg-black text-white p-6 min-h-screen flex flex-col">
+            <div class="flex flex-col items-center mb-8">
+                <div class="w-20 h-20 rounded-full overflow-hidden mb-4 border-2 border-red-500">
+                    <img src="icons/PP.jpg" 
+                         alt="Profile" class="w-full h-full object-cover">
+                </div>
+                <h2 class="text-lg font-bold text-center">Jan Kane T. Reroma</h2>
+                <p class="text-gray-300 text-sm">Software Engineer</p>
+            </div>
+
+            <button class="w-full mb-8 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white bg-transparent py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center">
+                <i data-lucide="download" class="w-4 h-4 mr-2"></i>
+                Resume
+            </button>
+
+            <nav class="space-y-2 mb-8 flex-1">
+                <a href="index.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-700">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span>Home</span>
+                </a>
+                <a href="aboutme.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-700">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                    <span>About</span>
+                </a>
+                <a href="achievements.html" class="nav-item active flex items-center space-x-3 p-3 rounded-lg">
+                    <i data-lucide="award" class="w-5 h-5"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="projects.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i data-lucide="folder-open" class="w-5 h-5"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="#blogs" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span>Blogs</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto pt-8">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm">Dark Mode</span>
+                    <button id="darkModeToggle" class="text-gray-300 hover:text-white p-2 rounded transition-colors">
+                        <i data-lucide="moon" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-gray-400">
+                    Designed & Built by Kane Reroma<br>
+                    © 2025. All rights reserved.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-8">
+            <!-- Hero Section -->
+            <div class="mb-8 overflow-hidden border-2 border-red-500 rounded-lg card-hover">
+                <div class="relative h-60 hero-bg">
+                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                    <div class="relative z-10 p-8 h-full flex flex-col justify-center">
+                        <h1 class="text-4xl font-bold text-white mb-2">My Achievements</h1>
+                        <p class="text-gray-300 text-lg">Certificates, Awards, and Professional Milestones</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="mb-8 grid grid-cols-4 gap-6">
+                <div class="stats-card p-6 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-red-400 mb-2">16</div>
+                    <div class="text-sm text-gray-300">Total Certificates</div>
+                </div>
+                <div class="stats-card p-6 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-red-400 mb-2">8</div>
+                    <div class="text-sm text-gray-300">Programming</div>
+                </div>
+                <div class="stats-card p-6 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-red-400 mb-2">5</div>
+                    <div class="text-sm text-gray-300">Web Development</div>
+                </div>
+                <div class="stats-card p-6 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-red-400 mb-2">3</div>
+                    <div class="text-sm text-gray-300">Other Skills</div>
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="mb-8">
+                <div class="flex flex-wrap gap-3">
+                    <button class="filter-btn active px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="all">
+                        All Certificates
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="programming">
+                        Programming
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="web">
+                        Web Development
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="other">
+                        Other Skills
+                    </button>
+                </div>
+            </div>
+
+            <!-- Certificates Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="certificates-grid">
+                <!-- Certificate Card 1 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
+                    <div class="badge">Programming</div>
+                    <div class="relative overflow-hidden">
+                        <img src="/certificates/csceligibility .png" 
+                             alt="JavaScript Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Civil Service</h3>
+                        <p class="text-gray-300 text-sm mb-4">Civil Service Eligibility demonstrating proficiency in Verbal (87.37%), Numerical (88.24%), Analytical (84%) and Gen Info (68.57%)</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: October 15, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 2 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
+                    <div class="badge">Programming</div>
+                    <div class="relative overflow-hidden">
+                        <img src="/certificates/diploma.png" 
+                             alt="Python Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Bachelors Degree</h3>
+                        <p class="text-gray-300 text-sm mb-4">Graduated in Bachelor of Science in Information Technology - Major in Programming - E-Commerce Capstone</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: June 30, 2023
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 3 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
+                    <div class="badge">Web Development</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/multimediaawardsscc.png" 
+                             alt="HTML Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Multi Media Awards</h3>
+                        <p class="text-gray-300 text-sm mb-4">Achieved award in Best in Video Editing for Sports Fest Event</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: June 30, 2023
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 4 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
+                    <div class="badge">Programming</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" 
+                             alt="Java Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Java (Basic)</h3>
+                        <p class="text-gray-300 text-sm mb-4">HackerRank certification proving Java programming fundamentals and object-oriented concepts.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Sep 20, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 5 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
+                    <div class="badge">Web Development</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop" 
+                             alt="React Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">React.js</h3>
+                        <p class="text-gray-300 text-sm mb-4">Udemy certification covering React fundamentals, hooks, and modern development practices.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Aug 15, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 6 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="other">
+                    <div class="badge">Other Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=250&fit=crop" 
+                             alt="Git Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Git & GitHub</h3>
+                        <p class="text-gray-300 text-sm mb-4">Version control mastery certification covering Git workflows and collaborative development.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Jul 30, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 7 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
+                    <div class="badge">Programming</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop" 
+                             alt="C++ Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">C++ (Basic)</h3>
+                        <p class="text-gray-300 text-sm mb-4">HackerRank certification demonstrating C++ programming fundamentals and memory management.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Jun 25, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 8 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
+                    <div class="badge">Web Development</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" 
+                             alt="PHP Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">PHP & MySQL</h3>
+                        <p class="text-gray-300 text-sm mb-4">Backend development certification covering PHP programming and MySQL database management.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: May 18, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 9 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
+                    <div class="badge">Programming</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop" 
+                             alt="SQL Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">SQL (Basic)</h3>
+                        <p class="text-gray-300 text-sm mb-4">HackerRank certification demonstrating database query skills and SQL fundamentals.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Apr 10, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 10 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
+                    <div class="badge">Web Development</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=250&fit=crop" 
+                             alt="Node.js Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Node.js & Express</h3>
+                        <p class="text-gray-300 text-sm mb-4">Backend development certification covering Node.js server-side programming and API development.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Mar 22, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 11 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
+                    <div class="badge">Programming</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop" 
+                             alt="Problem Solving Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Problem Solving (Basic)</h3>
+                        <p class="text-gray-300 text-sm mb-4">HackerRank certification demonstrating algorithmic thinking and problem-solving skills.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Feb 15, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 12 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="other">
+                    <div class="badge">Other Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" 
+                             alt="Agile Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Agile Project Management</h3>
+                        <p class="text-gray-300 text-sm mb-4">Scrum and Agile methodologies certification for effective project management.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: Jan 30, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="w-96 p-6 bg-gray-900">
+            <!-- Achievement Stats -->
+            <div class="mb-6 border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
+                <div class="p-4">
+                    <h3 class="font-bold mb-4 flex items-center">
+                        <i data-lucide="trophy" class="w-4 h-4 mr-2 text-red-500"></i>
+                        Achievement Stats
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-300">Total Certificates</span>
+                            <span class="font-bold text-red-400">16</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-300">This Year</span>
+                            <span class="font-bold text-red-400">8</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-300">Last Year</span>
+                            <span class="font-bold text-red-400">8</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-300">Completion Rate</span>
+                            <span class="font-bold text-red-400">95%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Achievements -->
+            <div class="mb-6 border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
+                <div class="p-4">
+                    <h3 class="font-bold mb-4 flex items-center">
+                        <i data-lucide="star" class="w-4 h-4 mr-2 text-red-500"></i>
+                        Recent Achievements
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-2 rounded bg-gray-700">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="award" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium">JavaScript (Basic)</p>
+                                <p class="text-xs text-gray-400">Dec 15, 2024</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 rounded bg-gray-700">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="award" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium">Python (Basic)</p>
+                                <p class="text-xs text-gray-400">Nov 28, 2024</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-2 rounded bg-gray-700">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="award" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium">HTML & CSS</p>
+                                <p class="text-xs text-gray-400">Oct 12, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Get in touch -->
+            <div class="border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
+                <div class="p-4">
+                    <h3 class="font-bold mb-4 flex items-center">
+                        <i data-lucide="mail" class="w-4 h-4 mr-2 text-red-500"></i>
+                        Get in touch
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-300">
+                        Let's build something great together — feel free to connect with me through any of the platforms above!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get filter value
+                const filter = this.getAttribute('data-filter');
+                
+                // Filter certificates
+                document.querySelectorAll('.certificate-card').forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease-in-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Certificate card click functionality
+        document.querySelectorAll('.certificate-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('h3').textContent;
+                console.log('Certificate clicked:', title);
+                // Add your certificate viewing logic here
+            });
+        });
+
+        // View Certificate button functionality
+        document.querySelectorAll('.certificate-card button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const card = this.closest('.certificate-card');
+                const title = card.querySelector('h3').textContent;
+                console.log('View certificate:', title);
+                // Add your certificate viewing logic here
+            });
+        });
+
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark');
+            console.log('Dark mode toggled');
+        });
+
+        // Social button functionality
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i').getAttribute('data-lucide');
+                console.log('Social button clicked:', icon);
+                // Add your social media links here
+            });
+        });
+
+        // Add fadeIn animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes bounce-in {
+                0% {
+                    transform: scale(0.3);
+                    opacity: 0;
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+                70% {
+                    transform: scale(0.9);
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add ripple effect to certificate cards
+        document.querySelectorAll('.certificate-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(239, 68, 68, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = e.clientX - this.offsetLeft + 'px';
+                ripple.style.top = e.clientY - this.offsetTop + 'px';
+                ripple.style.width = '100px';
+                ripple.style.height = '100px';
+                ripple.style.marginLeft = '-50px';
+                ripple.style.marginTop = '-50px';
+                ripple.style.pointerEvents = 'none';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // Add hover effects to stats cards
+        document.querySelectorAll('.stats-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Initialize page with fade-in animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to all certificate cards
+            document.querySelectorAll('.certificate-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease-in-out';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html> 
