@@ -132,13 +132,70 @@
             letter-spacing: -0.025em;
             line-height: 1.2;
         }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 50;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+            z-index: 40;
+        }
+        
+        .mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Ensure mobile menu is clickable */
+        @media (max-width: 1023px) {
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 320px;
+                z-index: 50;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .typewriter {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+            
+            .typewriter::after {
+                display: none;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 text-white font-sans">
+    <!-- Mobile Menu Button -->
+    <div class="lg:hidden fixed top-4 left-4 z-50">
+        <button id="mobileMenuBtn" class="bg-black p-3 rounded-lg border border-red-500">
+            <i data-lucide="menu" class="w-6 h-6 text-red-500"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"></div>
+
     <div class="flex min-h-screen">
         <!-- Left Sidebar -->
-        <div class="w-96 bg-black text-white p-6 min-h-screen flex flex-col">
+        <div id="sidebar" class="mobile-menu lg:translate-x-0 w-80 lg:w-96 bg-black text-white p-6 min-h-screen flex flex-col fixed lg:relative z-30">
             <div class="flex flex-col items-center mb-8">
                 <div class="w-20 h-20 rounded-full overflow-hidden mb-4 border-2 border-red-500">
                     <img src="icons/PP.jpg" 
@@ -191,7 +248,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-4 lg:p-8 lg:ml-0">
             <!-- Hero Section -->
             <div class="mb-8 overflow-hidden border-2 border-red-500 rounded-lg card-hover">
                 <div class="relative h-60 hero-bg">
@@ -204,48 +261,55 @@
             </div>
 
             <!-- Stats Section -->
-            <div class="mb-8 grid grid-cols-4 gap-6">
+            <div class="mb-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
                 <div class="stats-card p-6 rounded-lg text-center">
-                    <div class="text-3xl font-bold text-red-400 mb-2">16</div>
+                    <div class="text-3xl font-bold text-red-400 mb-2">26</div>
                     <div class="text-sm text-gray-300">Total Certificates</div>
                 </div>
                 <div class="stats-card p-6 rounded-lg text-center">
+                    <div class="text-3xl font-bold text-red-400 mb-2">7</div>
+                    <div class="text-sm text-gray-300">Education</div>
+                </div>
+                <div class="stats-card p-6 rounded-lg text-center">
                     <div class="text-3xl font-bold text-red-400 mb-2">8</div>
-                    <div class="text-sm text-gray-300">Programming</div>
+                    <div class="text-sm text-gray-300">TESDA</div>
                 </div>
                 <div class="stats-card p-6 rounded-lg text-center">
-                    <div class="text-3xl font-bold text-red-400 mb-2">5</div>
-                    <div class="text-sm text-gray-300">Web Development</div>
+                    <div class="text-3xl font-bold text-red-400 mb-2">2</div>
+                    <div class="text-sm text-gray-300">DICT</div>
                 </div>
                 <div class="stats-card p-6 rounded-lg text-center">
-                    <div class="text-3xl font-bold text-red-400 mb-2">3</div>
-                    <div class="text-sm text-gray-300">Other Skills</div>
+                    <div class="text-3xl font-bold text-red-400 mb-2">9</div>
+                    <div class="text-sm text-gray-300">Skills</div>
                 </div>
             </div>
 
             <!-- Filter Buttons -->
             <div class="mb-8">
-                <div class="flex flex-wrap gap-3">
+                <div class="flex flex-wrap gap-2 lg:gap-3">
                     <button class="filter-btn active px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="all">
                         All Certificates
                     </button>
-                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="programming">
-                        Programming
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="education">
+                        Education
                     </button>
-                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="web">
-                        Web Development
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="tesda">
+                        TESDA
                     </button>
-                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="other">
-                        Other Skills
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="dict">
+                        DICT
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200" data-filter="skills">
+                        Skills
                     </button>
                 </div>
             </div>
 
             <!-- Certificates Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="certificates-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6" id="certificates-grid">
                 <!-- Certificate Card 1 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
-                    <div class="badge">Programming</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="education">
+                    <div class="badge">Education</div>
                     <div class="relative overflow-hidden">
                         <img src="/certificates/csceligibility .png" 
                              alt="JavaScript Certificate" 
@@ -267,8 +331,8 @@
                 </div>
 
                 <!-- Certificate Card 2 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
-                    <div class="badge">Programming</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="education">
+                    <div class="badge">Education</div>
                     <div class="relative overflow-hidden">
                         <img src="/certificates/diploma.png" 
                              alt="Python Certificate" 
@@ -290,8 +354,8 @@
                 </div>
 
                 <!-- Certificate Card 3 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
-                    <div class="badge">Web Development</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="education">
+                    <div class="badge">Education</div>
                     <div class="relative overflow-hidden">
                         <img src="certificates/multimediaawardsscc.png" 
                              alt="HTML Certificate" 
@@ -311,18 +375,19 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <!-- Certificate Card 4 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
-                    <div class="badge">Programming</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="education">
+                    <div class="badge">Education</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" 
+                        <img src="certificates/shstvlimmerssion.png" 
                              alt="Java Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">Java (Basic)</h3>
-                        <p class="text-gray-300 text-sm mb-4">HackerRank certification proving Java programming fundamentals and object-oriented concepts.</p>
+                        <h3 class="font-bold text-lg mb-2">Work Immerssion</h3>
+                        <p class="text-gray-300 text-sm mb-4">Worked as an I.T. Support via Network Cabling and Systems Development</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
@@ -336,20 +401,20 @@
                 </div>
 
                 <!-- Certificate Card 5 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
-                    <div class="badge">Web Development</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="tesda">
+                    <div class="badge">TESDA</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop" 
+                        <img src="certificates/cssnttc.png" 
                              alt="React Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">React.js</h3>
-                        <p class="text-gray-300 text-sm mb-4">Udemy certification covering React fundamentals, hooks, and modern development practices.</p>
+                        <h3 class="font-bold text-lg mb-2">NTTC - Computer Systems Servicing NC II</h3>
+                        <p class="text-gray-300 text-sm mb-4">Certified Trainor in Computer Systems Servicing NC II awarded by TESDA Regional Office VII</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
-                                Issued: Aug 15, 2024
+                                Issued: May 13, 2024
                             </div>
                             <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
                                 View Certificate
@@ -359,20 +424,20 @@
                 </div>
 
                 <!-- Certificate Card 6 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="other">
-                    <div class="badge">Other Skills</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="tesda">
+                    <div class="badge">TESDA</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=250&fit=crop" 
+                        <img src="/certificates/cssnciic.png" 
                              alt="Git Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">Git & GitHub</h3>
-                        <p class="text-gray-300 text-sm mb-4">Version control mastery certification covering Git workflows and collaborative development.</p>
+                        <h3 class="font-bold text-lg mb-2">Computer Systems Servicing NC II</h3>
+                        <p class="text-gray-300 text-sm mb-4">Found Competent in Computer Systems Servicing NC II</br></p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
-                                Issued: Jul 30, 2024
+                                Issued: September 19, 2023
                             </div>
                             <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
                                 View Certificate
@@ -382,16 +447,16 @@
                 </div>
 
                 <!-- Certificate Card 7 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
-                    <div class="badge">Programming</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="tesda">
+                    <div class="badge">TESDA</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop" 
+                        <img src="/certificates/eimncii.png" 
                              alt="C++ Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">C++ (Basic)</h3>
-                        <p class="text-gray-300 text-sm mb-4">HackerRank certification demonstrating C++ programming fundamentals and memory management.</p>
+                        <h3 class="font-bold text-lg mb-2">Electrical Installation and Maintenance NC II</h3>
+                        <p class="text-gray-300 text-sm mb-4">Found Electrical Installation and Maintenance NC II / Residential Level</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
@@ -405,20 +470,20 @@
                 </div>
 
                 <!-- Certificate Card 8 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
-                    <div class="badge">Web Development</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="tesda">
+                    <div class="badge">TESDA</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" 
+                        <img src="/certificates/tmc1c.png" 
                              alt="PHP Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">PHP & MySQL</h3>
-                        <p class="text-gray-300 text-sm mb-4">Backend development certification covering PHP programming and MySQL database management.</p>
+                        <h3 class="font-bold text-lg mb-2">Trainer's Methodology I</h3>
+                        <p class="text-gray-300 text-sm mb-4">Competent in demonstrating Training and Assessment</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
-                                Issued: May 18, 2024
+                                Issued: October 27, 2023
                             </div>
                             <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
                                 View Certificate
@@ -428,20 +493,20 @@
                 </div>
 
                 <!-- Certificate Card 9 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
-                    <div class="badge">Programming</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="tesda">
+                    <div class="badge">TESDA</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=250&fit=crop" 
+                        <img src="certificates/isoawarenes9001.png" 
                              alt="SQL Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">SQL (Basic)</h3>
-                        <p class="text-gray-300 text-sm mb-4">HackerRank certification demonstrating database query skills and SQL fundamentals.</p>
+                        <h3 class="font-bold text-lg mb-2">ISO Awareness : 9001</h3>
+                        <p class="text-gray-300 text-sm mb-4">International Standards Organization 9001:2015 Awareness Orientation for IQA</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
-                                Issued: Apr 10, 2024
+                                Issued: December 27, 2023
                             </div>
                             <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
                                 View Certificate
@@ -451,16 +516,16 @@
                 </div>
 
                 <!-- Certificate Card 10 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="web">
-                    <div class="badge">Web Development</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="tesda">
+                    <div class="badge">TESDA</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=250&fit=crop" 
+                        <img src="/certificates/ptcminglaojt.png" 
                              alt="Node.js Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">Node.js & Express</h3>
-                        <p class="text-gray-300 text-sm mb-4">Backend development certification covering Node.js server-side programming and API development.</p>
+                        <h3 class="font-bold text-lg mb-2">PTC Minglanilla - OJT</h3>
+                        <p class="text-gray-300 text-sm mb-4">Worked as an I.T. Support at Provincial Training Center Minglanillat</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
@@ -474,16 +539,16 @@
                 </div>
 
                 <!-- Certificate Card 11 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="programming">
-                    <div class="badge">Programming</div>
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="tesda">
+                    <div class="badge">TESDA</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop" 
+                        <img src="certificates/gadtesda.png" 
                              alt="Problem Solving Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">Problem Solving (Basic)</h3>
-                        <p class="text-gray-300 text-sm mb-4">HackerRank certification demonstrating algorithmic thinking and problem-solving skills.</p>
+                        <h3 class="font-bold text-lg mb-2">Gender and Development</h3>
+                        <p class="text-gray-300 text-sm mb-4">Working in a Diverse Environment</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
                                 <i data-lucide="calendar" class="w-3 h-3"></i>
@@ -495,17 +560,18 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <!-- Certificate Card 12 -->
-                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="other">
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="dict">
                     <div class="badge">Other Skills</div>
                     <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" 
+                        <img src="certificates/dictdpa2012.png" 
                              alt="Agile Certificate" 
                              class="certificate-image w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-lg mb-2">Agile Project Management</h3>
+                        <h3 class="font-bold text-lg mb-2">RA-11073 DICT Data Privacy Act of 2012</h3>
                         <p class="text-gray-300 text-sm mb-4">Scrum and Agile methodologies certification for effective project management.</p>
                         <div class="flex items-center justify-between">
                             <div class="date-badge">
@@ -518,11 +584,243 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Certificate Card 13 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="dict">
+                    <div class="badge">DICT</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/dictdigitalhygiene.png" 
+                             alt="Digital Hygiene Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Digital Hygiene Awareness</h3>
+                        <p class="text-gray-300 text-sm mb-4">Comprehensive training on digital security practices and online safety protocols.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: September 20, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 14 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/adobe1.png" 
+                             alt="Adobe Certificate 1" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Adobe Creative Suite - Photoshop</h3>
+                        <p class="text-gray-300 text-sm mb-4">Advanced image editing and digital design using Adobe Photoshop.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: July 15, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 15 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/adobe2.png" 
+                             alt="Adobe Certificate 2" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Adobe Creative Suite - Illustrator</h3>
+                        <p class="text-gray-300 text-sm mb-4">Vector graphics and illustration design using Adobe Illustrator.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: August 10, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 16 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/adobe3.png" 
+                             alt="Adobe Certificate 3" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Adobe Creative Suite - InDesign</h3>
+                        <p class="text-gray-300 text-sm mb-4">Professional page layout and publishing using Adobe InDesign.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: September 5, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 17 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/adobe4.png" 
+                             alt="Adobe Certificate 4" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Adobe Creative Suite - Premiere Pro</h3>
+                        <p class="text-gray-300 text-sm mb-4">Professional video editing and post-production using Adobe Premiere Pro.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: October 12, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 18 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/adobe5.png" 
+                             alt="Adobe Certificate 5" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Adobe Creative Suite - After Effects</h3>
+                        <p class="text-gray-300 text-sm mb-4">Motion graphics and visual effects using Adobe After Effects.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: November 8, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 19 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/adobe6.png" 
+                             alt="Adobe Certificate 6" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Adobe Creative Suite - XD</h3>
+                        <p class="text-gray-300 text-sm mb-4">User experience and interface design using Adobe XD.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: December 3, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 20 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/adobe7.png" 
+                             alt="Adobe Certificate 7" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Adobe Creative Suite - Lightroom</h3>
+                        <p class="text-gray-300 text-sm mb-4">Professional photo editing and color correction using Adobe Lightroom.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: January 15, 2025
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 21 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/droneflight.png" 
+                             alt="Drone Flight Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Drone Flight Operations</h3>
+                        <p class="text-gray-300 text-sm mb-4">Certified drone pilot with advanced flight operations and safety protocols.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: April 26, 2024
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Card 22 -->
+                <div class="certificate-card bg-gray-800 rounded-lg overflow-hidden border border-gray-700" data-category="skills">
+                    <div class="badge">Skills</div>
+                    <div class="relative overflow-hidden">
+                        <img src="certificates/photography.png" 
+                             alt="Photography Certificate" 
+                             class="certificate-image w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-2">Professional Photography</h3>
+                        <p class="text-gray-300 text-sm mb-4">Advanced photography techniques and digital image capture certification.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="date-badge">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                Issued: April 24, 2025
+                            </div>
+                            <button class="text-red-400 hover:text-red-300 text-sm font-medium transition-colors">
+                                View Certificate
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        
+        
 
         <!-- Right Sidebar -->
-        <div class="w-96 p-6 bg-gray-900">
+        <div class="hidden lg:block w-96 p-6 bg-gray-900">
             <!-- Achievement Stats -->
             <div class="mb-6 border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
                 <div class="p-4">
@@ -533,11 +831,11 @@
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <span class="text-sm text-gray-300">Total Certificates</span>
-                            <span class="font-bold text-red-400">16</span>
+                            <span class="font-bold text-red-400">23</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-sm text-gray-300">This Year</span>
-                            <span class="font-bold text-red-400">8</span>
+                            <span class="font-bold text-red-400">15</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-sm text-gray-300">Last Year</span>
@@ -589,6 +887,7 @@
                     </div>
                 </div>
             </div>
+            
 
             <!-- Get in touch -->
             <div class="border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
@@ -625,6 +924,41 @@
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMobileMenu() {
+            console.log('Mobile menu button clicked');
+            sidebar.classList.toggle('open');
+            mobileOverlay.classList.toggle('open');
+        }
+
+        function closeMobileMenu() {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+        }
+
+        // Add event listeners when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', closeMobileMenu);
+            }
+
+            // Close mobile menu when clicking on nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+        });
 
         // Filter functionality
         document.querySelectorAll('.filter-btn').forEach(btn => {
