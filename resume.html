@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kane Reroma - Resume</title>
+    <link rel="icon" type="image/jpeg" href="icons/sharingan.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #000000 0%, #7f1d1d 50%, #000000 100%);
+        }
+        .skill-icon {
+            transition: transform 0.2s ease-in-out;
+        }
+        .skill-icon:hover {
+            transform: scale(1.1);
+        }
+        .nav-item {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-item:hover {
+            background-color: #374151;
+        }
+        .nav-item.active {
+            background-color: #ef4444;
+        }
+        .card-hover {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.1);
+        }
+        .social-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .social-btn:hover {
+            background-color: #ef4444;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .expertise-item.active {
+            background-color: #4B5563; /* gray-700 */
+            color: #F9FAFB;            /* gray-50 */
+        }
+
+        .expertise-item.active i {
+            color: #F9FAFB !important;
+        }
+
+        .expertise-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expertise-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            transition: left 0.5s ease-in-out;
+        }
+
+        .expertise-item:hover::before {
+            left: 100%;
+        }
+
+        .expertise-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+            opacity: 0;
+            padding: 0;
+        }
+
+        .expertise-content.show {
+            max-height: 200px;
+            opacity: 1;
+            padding: 16px 20px;
+        }
+
+        .expertise-item.active .expertise-content {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-radius: 0 0 8px 8px;
+            margin: 0 -20px -16px -20px;
+        }
+        
+        /* Stat card animations */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            transition: left 0.5s ease-in-out;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-card:hover {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+        
+        /* Counter animation enhancement */
+        .counter {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .counter.animate {
+            animation: bounce-in 0.6s ease-out;
+        }
+        
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Typewriter animation styles */
+        .typewriter {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .typewriter::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: #ef4444;
+            animation: blink-caret 1s step-end infinite;
+        }
+        
+        @keyframes blink-caret {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Modern font styles */
+        .modern-text {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 30;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+            z-index: 20;
+        }
+        
+        .mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Ensure mobile menu is clickable */
+        @media (max-width: 1023px) {
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 320px;
+                z-index: 30;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .typewriter {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+            
+            .typewriter::after {
+                display: none;
+            }
+            
+            /* Ensure navigation links are clickable on mobile */
+            .nav-item {
+                position: relative;
+                z-index: 15;
+            }
+            
+            /* Ensure main content is above sidebar when closed */
+            .flex-1 {
+                position: relative;
+                z-index: 10;
+            }
+        }
+
+        /* Resume iframe styles */
+        .resume-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .resume-iframe {
+            width: 100%;
+            height: calc(100vh - 200px);
+            border: none;
+            border-radius: 8px;
+        }
+
+        .resume-header {
+            background: linear-gradient(135deg, #000000 0%, #7f1d1d 50%, #000000 100%);
+            padding: 1.5rem;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 1rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 text-white font-sans">
+    <!-- Mobile Menu Button -->
+    <div class="lg:hidden fixed top-4 left-4 z-40">
+        <button id="mobileMenuBtn" class="bg-black p-3 rounded-lg border border-red-500">
+            <i data-lucide="menu" class="w-6 h-6 text-red-500"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"></div>
+
+    <div class="flex min-h-screen">
+        <!-- Left Sidebar -->
+        <div id="sidebar" class="mobile-menu lg:translate-x-0 w-80 lg:w-96 bg-black text-white p-6 min-h-screen flex flex-col fixed lg:relative z-30">
+            <div class="flex flex-col items-center mb-8">
+                <div class="w-20 h-20 rounded-full overflow-hidden mb-4 border-2 border-red-500">
+                    <img src="icons/PP.jpg" 
+                         alt="Profile" class="w-full h-full object-cover">
+                </div>
+                <h2 class="text-lg font-bold text-center">Jan Kane T. Reroma</h2>
+                <p class="text-gray-300 text-sm">Software Engineer</p>
+            </div>
+
+            <a href="resume.html" class="w-full mb-8 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white bg-transparent py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center">
+                <i data-lucide="download" class="w-4 h-4 mr-2"></i>
+                Resume
+            </a>
+
+            <nav class="space-y-2 mb-8 flex-1">
+                <a href="index.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-700">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span>Home</span>
+                </a>
+                <a href="aboutme.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-700">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                    <span>About</span>
+                </a>
+                <a href="achievements.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-700">
+                    <i data-lucide="award" class="w-5 h-5"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="projects.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-700">
+                    <i data-lucide="folder-open" class="w-5 h-5"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="#blogs" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span>Blogs</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto pt-8">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm">Dark Mode</span>
+                    <button id="darkModeToggle" class="text-gray-300 hover:text-white p-2 rounded transition-colors">
+                        <i data-lucide="moon" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-gray-400">
+                    Designed & Built by Kane Reroma<br>
+                    © 2025. All rights reserved.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-4 lg:p-8 lg:ml-0 relative z-10">
+            <!-- Resume Header -->
+            <div class="resume-header mb-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <h1 class="text-2xl lg:text-3xl font-bold text-white mb-2">My Resume</h1>
+                        <p class="text-gray-300">Professional experience and qualifications</p>
+                    </div>
+                    <div class="mt-4 lg:mt-0">
+                        <a href="resume.pdf" download class="download-btn">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resume Viewer -->
+            <div class="resume-container">
+                <iframe 
+                    src="resume.pdf" 
+                    class="resume-iframe"
+                    title="Kane Reroma Resume"
+                    allowfullscreen>
+                    <p>Your browser does not support iframes. Please <a href="resume.pdf" target="_blank">click here</a> to view the resume.</p>
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="hidden lg:block w-96 p-6 bg-gray-900">
+            <!-- Skill Set -->
+            <div class="mb-6 border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
+                <div class="p-4">
+                    <h3 class="font-bold mb-4 flex items-center">
+                        <i data-lucide="award" class="w-4 h-4 mr-2 text-red-500"></i>
+                        Skill Set
+                    </h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="JavaScript">
+                            <i class="bi bi-filetype-js text-2xl text-yellow-400"></i>
+                        </div>
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="PHP">
+                            <i class="bi bi-filetype-php text-2xl text-purple-500"></i>
+                        </div>
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="HTML">
+                            <i class="bi bi-filetype-html text-2xl text-orange-500"></i>
+                        </div>
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="CSS">
+                            <i class="bi bi-filetype-css text-2xl text-blue-500"></i>
+                        </div>
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="MySQL">
+                            <i class="bi bi-database text-2xl text-blue-400"></i>
+                        </div>
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="Tailwind CSS">
+                            <i class="bi bi-wind text-2xl text-cyan-400"></i>
+                        </div>
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="GitHub">
+                            <i class="bi bi-github text-2xl text-white"></i>
+                        </div>
+                        <div class="skill-icon w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-200" title="Bootstrap">
+                            <i class="bi bi-bootstrap text-2xl text-purple-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Get in touch -->
+            <div class="border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
+                <div class="p-4">
+                    <h3 class="font-bold mb-4 flex items-center">
+                        <i class="bi bi-envelope text-lg mr-2 text-red-500"></i>
+                        Get in touch
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i class="bi bi-github text-lg"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i class="bi bi-envelope text-lg"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i class="bi bi-linkedin text-lg"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i class="bi bi-twitter-x text-lg"></i>
+                        </button>
+                        <button class="social-btn border-2 border-red-500 text-red-500 bg-transparent p-2 rounded-lg">
+                            <i class="bi bi-instagram text-lg"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-300">
+                        Let's build something great together — feel free to connect with me through any of the platforms above!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        function toggleMobileMenu() {
+            console.log('Mobile menu button clicked');
+            sidebar.classList.toggle('open');
+            mobileOverlay.classList.toggle('open');
+        }
+
+        function closeMobileMenu() {
+            sidebar.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+        }
+
+        // Add event listeners when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', closeMobileMenu);
+            }
+
+            // Close mobile menu when clicking on nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+        });
+
+        // Dark mode toggle (basic implementation)
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark');
+            console.log('Dark mode toggled');
+        });
+
+        // Social button functionality
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i').className;
+                console.log('Social button clicked:', icon);
+                // Add your social media links here
+            });
+        });
+
+        // Add some interactive feedback
+        document.querySelectorAll('.skill-icon').forEach(skill => {
+            skill.addEventListener('click', function() {
+                this.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
