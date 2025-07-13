@@ -99,8 +99,15 @@
         .stat-card {
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 24px 0 rgba(239, 68, 68, 0.08), 0 1.5px 6px 0 rgba(0,0,0,0.12);
         }
-        
+        .stat-card .glow {
+            text-shadow: 0 0 16px #ef4444, 0 0 32px #ef4444aa;
+            transition: text-shadow 0.3s;
+        }
+        .stat-card .counter.pulse {
+            animation: pulse-glow 1.2s cubic-bezier(.4,0,.2,1) 1;
+        }
         .stat-card::before {
             content: '';
             position: absolute;
@@ -111,21 +118,18 @@
             background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
             transition: left 0.5s ease-in-out;
         }
-        
         .stat-card:hover::before {
             left: 100%;
         }
-        
         .stat-card:hover {
             animation: pulse-glow 2s infinite;
         }
-        
         @keyframes pulse-glow {
             0%, 100% {
                 box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
             }
             50% {
-                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+                box-shadow: 0 0 0 24px rgba(239, 68, 68, 0);
             }
         }
         
@@ -162,19 +166,14 @@
             white-space: nowrap;
             position: relative;
         }
-        
-        .typewriter::after {
-            content: '';
-            position: absolute;
-            right: -4px;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background-color: #ef4444;
-            animation: blink-caret 1s step-end infinite;
+        .typewriter-caret {
+            display: inline-block;
+            width: 1ch;
+            color: #ef4444;
+            font-weight: bold;
+            animation: blink-caret-underscore 1s step-end infinite;
         }
-        
-        @keyframes blink-caret {
+        @keyframes blink-caret-underscore {
             from, to { opacity: 1; }
             50% { opacity: 0; }
         }
@@ -317,7 +316,7 @@
         <div class="flex-1 p-4 lg:p-8 lg:ml-0 relative z-10">
             <!-- Hero Section -->
             <div class="mb-8 overflow-hidden border-2 border-red-500 rounded-lg card-hover">
-                <div class="relative h-60 lg:h-80 hero-bg">
+                <div class="relative h-60 lg:h-80 hero-bg" style="background-image: url('icons/itachi.jpg'); background-size: cover; background-position: center;">
                     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                     <div class="relative z-10 p-4 lg:p-8 h-full flex flex-col justify-between">
                         <div class="flex items-center text-white text-opacity-80 text-sm">
@@ -325,58 +324,61 @@
                             <span id="currentDate">Sat, July 12, 2025</span>
                         </div>
                         <h1 class="text-2xl lg:text-4xl modern-text text-white typewriter" id="typewriter-text">Welcome to my Career Portfolio . . . </h1>
-                    </div>
+                    </div>     
                 </div>
             </div>
 
             <!-- Career Stats -->
-            <div class="mb-8 border-2 border-red-500 rounded-lg bg-gray-800 card-hover">
-                <div class="p-4 lg:p-6">
-                    <h2 class="text-xl font-bold mb-6 flex items-center">
-                        <i data-lucide="award" class="w-5 h-5 mr-2 text-red-500"></i>
+            <div class="mb-6 border-2 border-red-500 rounded bg-gray-900 card-hover shadow-md">
+                <div class="p-3 lg:p-4">
+                    <h2 class="text-lg font-bold mb-3 flex items-center tracking-tight text-white drop-shadow-lg">
+                        <i data-lucide="award" class="w-4 h-4 mr-1 text-red-500"></i>
                         Career Stats
                     </h2>
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 bg-gradient-to-br from-gray-800 to-gray-900 rounded shadow-md border border-red-700 p-2">
                             <div class="relative">
-                                <div class="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-red-500/25 group-hover:shadow-xl transition-all duration-300">
-                                    <span class="text-lg lg:text-2xl font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300">0</span>
+                                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-xl group-hover:shadow-red-500/40 group-hover:shadow-2xl transition-all duration-300">
+                                    <span class="text-sm lg:text-base font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300 glow">2</span>
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-red-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
-                                <div class="absolute -top-1 -right-1 w-3 h-3 lg:w-4 lg:h-4 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
+                                <div class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 lg:w-3 h-3 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
                             </div>
-                            
-                            <p class="font-semibold text-sm lg:text-base group-hover:text-red-400 transition-colors duration-300">Experience</p>
+                            <p class="font-bold text-xs lg:text-sm group-hover:text-red-400 transition-colors duration-300 mt-1 mb-0 tracking-wide">Experience</p>
+                            <p class="text-xs text-gray-400 font-medium">Years in the industry</p>
                         </div>
-                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 bg-gradient-to-br from-gray-800 to-gray-900 rounded shadow-md border border-red-700 p-2">
                             <div class="relative">
-                                <div class="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-red-500/25 group-hover:shadow-xl transition-all duration-300">
-                                    <span class="text-lg lg:text-2xl font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300" data-target="26">0</span>
+                                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-xl group-hover:shadow-red-500/40 group-hover:shadow-2xl transition-all duration-300">
+                                    <span class="text-sm lg:text-base font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300 glow" data-target="26">26</span>
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-red-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
-                                <div class="absolute -top-1 -right-1 w-3 h-3 lg:w-4 lg:h-4 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
+                                <div class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 lg:w-3 h-3 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
                             </div>
-                            <p class="font-semibold text-sm lg:text-base group-hover:text-red-400 transition-colors duration-300">Certificates</p>
+                            <p class="font-bold text-xs lg:text-sm group-hover:text-red-400 transition-colors duration-300 mt-1 mb-0 tracking-wide">Certificates</p>
+                            <p class="text-xs text-gray-400 font-medium">Recognized achievements</p>
                         </div>
-                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 bg-gradient-to-br from-gray-800 to-gray-900 rounded shadow-md border border-red-700 p-2">
                             <div class="relative">
-                                <div class="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-red-500/25 group-hover:shadow-xl transition-all duration-300">
-                                    <span class="text-lg lg:text-2xl font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300" data-target="3">0</span>
+                                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-xl group-hover:shadow-red-500/40 group-hover:shadow-2xl transition-all duration-300">
+                                    <span class="text-sm lg:text-base font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300 glow" data-target="3">3</span>
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-red-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
-                                <div class="absolute -top-1 -right-1 w-3 h-3 lg:w-4 lg:h-4 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
+                                <div class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 lg:w-3 h-3 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
                             </div>
-                            <p class="font-semibold text-sm lg:text-base group-hover:text-red-400 transition-colors duration-300">Projects</p>
+                            <p class="font-bold text-xs lg:text-sm group-hover:text-red-400 transition-colors duration-300 mt-1 mb-0 tracking-wide">Projects</p>
+                            <p class="text-xs text-gray-400 font-medium">Major completed works</p>
                         </div>
-                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                        <div class="text-center stat-card group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 bg-gradient-to-br from-gray-800 to-gray-900 rounded shadow-md border border-red-700 p-2">
                             <div class="relative">
-                                <div class="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-red-500/25 group-hover:shadow-xl transition-all duration-300">
-                                    <span class="text-lg lg:text-2xl font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300" data-target="8">0</span>
+                                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-xl group-hover:shadow-red-500/40 group-hover:shadow-2xl transition-all duration-300">
+                                    <span class="text-sm lg:text-base font-bold text-red-400 counter group-hover:text-red-300 transition-colors duration-300 glow" data-target="8">8</span>
                                     <div class="absolute inset-0 rounded-full bg-gradient-to-br from-red-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
-                                <div class="absolute -top-1 -right-1 w-3 h-3 lg:w-4 lg:h-4 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
+                                <div class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 lg:w-3 h-3 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></div>
                             </div>
-                            <p class="font-semibold text-sm lg:text-base group-hover:text-red-400 transition-colors duration-300">Technologies</p>
+                            <p class="font-bold text-xs lg:text-sm group-hover:text-red-400 transition-colors duration-300 mt-1 mb-0 tracking-wide">Technologies</p>
+                            <p class="text-xs text-gray-400 font-medium">Tools & stacks mastered</p>
                         </div>
                     </div>
                 </div>
@@ -654,38 +656,30 @@
         // Enhanced counter animation
         function animateCounters() {
             const counters = document.querySelectorAll('.counter');
-            
             counters.forEach((counter, index) => {
                 let target;
-                
-                // Special handling for experience counter
-                if (counter.closest('.stat-card') && counter.closest('.stat-card').querySelector('.font-semibold').textContent === 'Experience') {
+                if (counter.closest('.stat-card') && counter.closest('.stat-card').querySelector('.font-extrabold').textContent === 'Experience') {
                     target = calculateYearsOfExperience();
                 } else {
                     target = parseInt(counter.getAttribute('data-target'));
                 }
-                
                 const increment = target / 50;
                 let current = 0;
-                
-                // Add delay for staggered animation
                 setTimeout(() => {
                     const timer = setInterval(() => {
                         current += increment;
                         if (current >= target) {
                             counter.textContent = target;
-                            counter.classList.add('animate');
-                            clearInterval(timer);
-                            
-                            // Remove animation class after animation completes
+                            counter.classList.add('animate', 'pulse');
                             setTimeout(() => {
-                                counter.classList.remove('animate');
-                            }, 600);
+                                counter.classList.remove('animate', 'pulse');
+                            }, 1200);
+                            clearInterval(timer);
                         } else {
                             counter.textContent = Math.floor(current);
                         }
                     }, 30);
-                }, index * 200); // Stagger the animations
+                }, index * 200);
             });
         }
 
@@ -796,11 +790,21 @@
             const textElement = document.getElementById('typewriter-text');
             const text = textElement.textContent;
             textElement.textContent = '';
-            
+            // Remove any existing caret
+            if (textElement.querySelector) {
+                const oldCaret = textElement.querySelector('.typewriter-caret');
+                if (oldCaret) oldCaret.remove();
+            }
             let i = 0;
+            // Create caret
+            const caret = document.createElement('span');
+            caret.className = 'typewriter-caret';
+            caret.textContent = '_';
+            textElement.appendChild(caret);
             const typeWriter = () => {
                 if (i < text.length) {
-                    textElement.textContent += text.charAt(i);
+                    // Insert character before caret
+                    textElement.insertBefore(document.createTextNode(text.charAt(i)), caret);
                     i++;
                     setTimeout(typeWriter, 100);
                 } else {
@@ -810,7 +814,6 @@
                     }, 3000);
                 }
             };
-            
             // Start the typewriter effect after a short delay
             setTimeout(typeWriter, 500);
         }
@@ -818,13 +821,22 @@
         // Function to restart the typewriter effect
         function restartTypewriter() {
             const textElement = document.getElementById('typewriter-text');
-            const text = textElement.textContent;
+            const text = textElement.textContent.replace(/_$/, '');
             textElement.textContent = '';
-            
+            // Remove any existing caret
+            if (textElement.querySelector) {
+                const oldCaret = textElement.querySelector('.typewriter-caret');
+                if (oldCaret) oldCaret.remove();
+            }
             let i = 0;
+            // Create caret
+            const caret = document.createElement('span');
+            caret.className = 'typewriter-caret';
+            caret.textContent = '_';
+            textElement.appendChild(caret);
             const typeWriter = () => {
                 if (i < text.length) {
-                    textElement.textContent += text.charAt(i);
+                    textElement.insertBefore(document.createTextNode(text.charAt(i)), caret);
                     i++;
                     setTimeout(typeWriter, 100);
                 } else {
@@ -834,7 +846,6 @@
                     }, 3000);
                 }
             };
-            
             // Start typing immediately
             typeWriter();
         }
